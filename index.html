@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050706">
+  <meta name="description" content="NOVA AGENCY — веб-разработка, AI-боты и автоматизация для амбициозных брендов.">
+  <title>NOVA AGENCY — цифровое будущее начинается здесь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050706;
+      --bg-soft: #0a0d0b;
+      --surface: rgba(255,255,255,.035);
+      --surface-hover: rgba(0,255,102,.065);
+      --text: #f5f7f5;
+      --muted: #969d98;
+      --line: rgba(255,255,255,.11);
+      --accent: #00ff66;
+      --accent-2: #00f3ff;
+      --header: rgba(5,7,6,.72);
+      --shadow: 0 24px 80px rgba(0,0,0,.28);
+      --font: 'Inter', sans-serif;
+      --display: 'Space Grotesk', 'Inter', sans-serif;
+    }
+    [data-theme="light"] {
+      color-scheme: light;
+      --bg: #f4f6f3;
+      --bg-soft: #edf0ec;
+      --surface: rgba(10,20,12,.035);
+      --surface-hover: rgba(0,195,78,.075);
+      --text: #101411;
+      --muted: #626b64;
+      --line: rgba(10,20,12,.13);
+      --accent: #00a844;
+      --accent-2: #009ca8;
+      --header: rgba(244,246,243,.76);
+      --shadow: 0 24px 80px rgba(27,43,31,.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { position: relative; margin: 0; background: transparent; color: var(--text); font-family: var(--font); font-size: 15px; line-height: 1.6; transition: color .4s; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; z-index: -3; background: var(--bg); transition: background-color .4s; pointer-events: none; }
+    body, button, input, textarea { font-family: var(--font); }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; }
+    ::selection { color: #041007; background: var(--accent); }
+    #space { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; opacity: .74; }
+    .ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 50% 12%, rgba(0,255,102,.065), transparent 42%), linear-gradient(180deg, transparent 60%, var(--bg) 100%); transition: background .4s; }
+    [data-theme="light"] .ambient { background: radial-gradient(ellipse at 50% 12%, rgba(0,168,68,.075), transparent 42%), linear-gradient(180deg, transparent 55%, var(--bg) 100%); }
+    .container { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+    .section { padding: 116px 0; position: relative; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 44px; }
+    .section-head h2 { margin: 14px 0 0; font: 700 clamp(38px, 5.3vw, 64px)/.98 var(--display); letter-spacing: -.065em; }
+    .section-head p { color: var(--muted); max-width: 330px; margin: 0 0 4px; font-size: 14px; }
+    .header { position: fixed; z-index: 20; top: 0; inset-inline: 0; height: 76px; border-bottom: 1px solid transparent; background: var(--header); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: background .4s, border-color .3s; }
+    .header.scrolled { border-color: var(--line); }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font: 700 13px var(--display); letter-spacing: .12em; white-space: nowrap; }
+    .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--accent); border-radius: 9px; color: var(--accent); font-size: 16px; line-height: 1; box-shadow: inset 0 0 15px rgba(0,255,102,.09), 0 0 18px rgba(0,255,102,.08); }
+    .nav { display: flex; gap: clamp(18px, 3vw, 38px); align-items: center; }
+    .nav a { color: var(--muted); font-size: 12px; transition: color .2s; }
+    .nav a:hover { color: var(--accent); }
+    .header-actions { display: flex; align-items: center; gap: 13px; }
+    .theme-toggle, .menu-toggle { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: border-color .2s, transform .2s, background .4s; }
+    .theme-toggle:hover, .menu-toggle:hover { border-color: var(--accent); transform: rotate(8deg); }
+    .theme-toggle svg { width: 16px; height: 16px; stroke: var(--text); fill: none; stroke-width: 1.7; }
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: none; }
+    .button { min-height: 46px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; padding: 0 20px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; transition: color .25s, background .25s, border-color .25s, transform .25s, box-shadow .25s; }
+    .button:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .button-primary { background: var(--accent); border-color: var(--accent); color: #031007; box-shadow: 0 0 24px rgba(0,255,102,.16); }
+    [data-theme="light"] .button-primary { color: #fff; }
+    .button-primary:hover { background: transparent; color: var(--accent); box-shadow: 0 0 28px rgba(0,255,102,.18); }
+    .button svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .header-cta { min-height: 38px; padding-inline: 16px; border-color: rgba(0,255,102,.55); font-size: 11px; }
+    .menu-toggle { display: none; }
+    .hero { min-height: 770px; padding: 170px 0 90px; display: grid; place-items: center; position: relative; text-align: center; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; width: min(72vw, 820px); aspect-ratio: 1; top: 3%; left: 50%; transform: translateX(-50%); border-radius: 50%; border: 1px solid rgba(0,255,102,.075); background: radial-gradient(circle, rgba(0,255,102,.08), rgba(0,243,255,.025) 35%, transparent 69%); filter: blur(.3px); pointer-events: none; }
+    .hero-content { position: relative; max-width: 1000px; }
+    .hero .eyebrow { margin-bottom: 26px; }
+    .hero h1 { margin: 0 auto 25px; max-width: 1000px; font: 700 clamp(52px, 9.5vw, 120px)/.88 var(--display); letter-spacing: -.09em; text-wrap: balance; }
+    .hero h1 span { display: block; color: transparent; -webkit-text-stroke: 1px var(--text); opacity: .85; }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero-copy { max-width: 570px; margin: 0 auto; color: var(--muted); font-size: clamp(14px, 1.5vw, 17px); text-wrap: balance; }
+    .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .hero-meta { display: flex; justify-content: center; align-items: center; gap: 26px; margin-top: 62px; color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-meta i { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
+    .scroll-cue { position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%); color: var(--muted); font-size: 9px; letter-spacing: .19em; text-transform: uppercase; }
+    .scroll-cue::after { content: ''; display: block; width: 1px; height: 28px; margin: 10px auto 0; background: linear-gradient(var(--accent), transparent); }
+    .ticker { border-block: 1px solid var(--line); overflow: hidden; background: var(--surface); }
+    .ticker-track { width: max-content; display: flex; gap: 40px; padding: 17px 0; animation: ticker 35s linear infinite; color: var(--muted); font: 600 10px var(--display); letter-spacing: .15em; text-transform: uppercase; }
+    .ticker-track span { display: inline-flex; align-items: center; gap: 40px; }
+    .ticker-track b { color: var(--accent); font-size: 14px; }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+    .service-card { min-height: 280px; padding: 28px 24px; position: relative; border-right: 1px solid var(--line); background: var(--surface); transition: background .35s, transform .35s; }
+    .service-card:last-child { border-right: 0; }
+    .service-card::before { content: ''; position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at 20% 0%, rgba(0,255,102,.14), transparent 64%); transition: opacity .35s; pointer-events: none; }
+    .service-card:hover { background: var(--surface-hover); }
+    .service-card:hover::before { opacity: 1; }
+    .service-number { position: relative; color: var(--accent); font: 600 11px var(--display); }
+    .service-icon { width: 44px; height: 44px; margin: 42px 0 20px; border: 1px solid var(--line); border-radius: 13px; display: grid; place-items: center; color: var(--accent); background: var(--bg-soft); }
+    .service-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .service-card h3 { position: relative; margin: 0 0 8px; font: 600 17px var(--display); letter-spacing: -.04em; }
+    .service-card p { position: relative; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .cases { background: linear-gradient(180deg, transparent, var(--surface) 44%, transparent); }
+    .cases-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+    .case-card { min-height: 390px; overflow: hidden; position: relative; border: 1px solid var(--line); border-radius: 18px; background-color: var(--bg-soft); background-size: cover; background-position: center; box-shadow: var(--shadow); isolation: isolate; }
+    .case-card::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(3,7,5,.05) 15%, rgba(3,7,5,.85) 100%); transition: opacity .3s; }
+    .case-card:hover { border-color: rgba(0,255,102,.45); }
+    .case-card:first-child { background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=85'); }
+    .case-card:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=85'); }
+    .case-card:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=85'); }
+    .case-label { position: absolute; top: 20px; left: 20px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.3); border-radius: 99px; color: #fff; background: rgba(0,0,0,.25); backdrop-filter: blur(12px); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .case-info { position: absolute; inset-inline: 24px; bottom: 24px; color: #fff; }
+    .case-info small { color: rgba(255,255,255,.7); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+    .case-info h3 { margin: 6px 0 5px; font: 600 clamp(24px, 3vw, 38px)/1.05 var(--display); letter-spacing: -.06em; }
+    .case-info p { max-width: 400px; margin: 0; color: rgba(255,255,255,.73); font-size: 12px; }
+    .case-arrow { position: absolute; right: 22px; bottom: 24px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; color: #fff; transition: background .2s, color .2s; }
+    .case-card:hover .case-arrow { background: var(--accent); color: #051007; }
+    .case-arrow svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 18px; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .stat { padding: 22px 24px; border-right: 1px solid var(--line); background: var(--surface); }
+    .stat:last-child { border-right: 0; }
+    .stat strong { display: block; color: var(--accent); font: 700 28px var(--display); letter-spacing: -.06em; }
+    .stat span { color: var(--muted); font-size: 11px; }
+    .team-box { border-top: 1px solid var(--line); }
+    .team-row { display: grid; grid-template-columns: 1fr 1fr 36px; align-items: center; gap: 20px; padding: 22px 8px; border-bottom: 1px solid var(--line); transition: padding .25s, color .25s; }
+    .team-row:hover { padding-inline: 16px; color: var(--accent); }
+    .team-name { font: 600 clamp(17px, 2vw, 22px) var(--display); letter-spacing: -.04em; }
+    .team-role { color: var(--muted); font-size: 13px; }
+    .team-row:hover .team-role { color: var(--accent); }
+    .team-status { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); justify-self: end; box-shadow: 0 0 12px var(--accent); }
+    .team-note { color: var(--muted); font-size: 11px; margin-top: 18px; }
+    .contact { padding-bottom: 80px; }
+    .contact-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; padding: clamp(28px, 6vw, 64px); border: 1px solid var(--line); border-radius: 22px; background: radial-gradient(ellipse at 0% 0%, rgba(0,255,102,.07), transparent 46%), var(--surface); box-shadow: var(--shadow); }
+    .contact-copy h2 { margin: 17px 0 16px; font: 700 clamp(44px, 6vw, 76px)/.9 var(--display); letter-spacing: -.08em; }
+    .contact-copy h2 span { color: var(--accent); }
+    .contact-copy > p { max-width: 340px; color: var(--muted); font-size: 14px; }
+    .contact-links { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 38px; }
+    .contact-links a { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-size: 12px; transition: color .2s; }
+    .contact-links a:hover { color: var(--accent); }
+    .contact-links svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.7; }
+    .contact-form { display: grid; gap: 17px; align-content: center; }
+    .field { display: grid; gap: 7px; }
+    .field label { color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .field input, .field textarea { width: 100%; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 12px 2px; outline: none; background: transparent; color: var(--text); font-size: 14px; transition: border-color .2s; }
+    .field input:focus, .field textarea:focus { border-color: var(--accent); }
+    .field textarea { min-height: 82px; resize: vertical; }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: .65; }
+    .contact-form .button { justify-self: start; margin-top: 8px; }
+    .form-message { min-height: 20px; margin: 0; color: var(--accent); font-size: 12px; }
+    .form-hint { color: var(--muted); font-size: 10px; }
+    .footer { padding: 25px 0 34px; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 10px; }
+    .footer-meta { display: flex; gap: 18px; }
+    .footer a:hover { color: var(--accent); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .1s; } .delay-2 { transition-delay: .2s; } .delay-3 { transition-delay: .3s; }
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .service-card:nth-child(2) { border-right: 0; }
+      .service-card:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .contact-wrap { gap: 36px; }
+      .nav { gap: 18px; }
+      .header-cta { display: none; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 36px, 520px); }
+      .header { height: 66px; }
+      .nav { display: none; position: absolute; top: 65px; left: 0; right: 0; padding: 18px 22px 24px; border-bottom: 1px solid var(--line); background: var(--header); backdrop-filter: blur(18px); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav.open { display: flex; }
+      .nav a { padding: 12px 2px; border-bottom: 1px solid var(--line); font-size: 14px; }
+      .menu-toggle { display: grid; }
+      .hero { min-height: 710px; padding: 140px 0 90px; }
+      .hero h1 { font-size: clamp(49px, 14vw, 78px); }
+      .hero-meta { flex-wrap: wrap; gap: 12px 18px; margin-top: 45px; font-size: 8px; }
+      .section { padding: 82px 0; }
+      .section-head { align-items: flex-start; flex-direction: column; margin-bottom: 30px; }
+      .section-head p { max-width: 400px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: 230px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .service-card:last-child { border-bottom: 0; }
+      .service-card:nth-child(2) { border-bottom: 1px solid var(--line); }
+      .service-icon { margin: 28px 0 16px; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .case-card { min-height: 330px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: 0; border-bottom: 1px solid var(--line); }
+      .stat:last-child { border-bottom: 0; }
+      .team-row { grid-template-columns: 1fr 24px; gap: 5px 15px; padding: 18px 4px; }
+      .team-name { grid-column: 1; }
+      .team-role { grid-column: 1; font-size: 11px; }
+      .team-status { grid-column: 2; grid-row: 1 / span 2; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 35px; padding: 28px 22px; }
+      .contact { padding-bottom: 56px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <canvas id="space" aria-hidden="true"></canvas>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <header class="header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="NOVA AGENCY — на главную"><span class="brand-mark">✳</span><span>NOVA AGENCY</span></a>
+      <nav class="nav" id="site-nav" aria-label="Основная навигация">
+        <a href="#services">Услуги</a><a href="#cases">Кейсы</a><a href="#team">Команда</a><a href="#contact">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему" title="Переключить тему">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 15.4A8.5 8.5 0 0 1 8.6 3.7 8.5 8.5 0 1 0 20.3 15.4Z"/></svg>
+        </button>
+        <a class="button header-cta" href="#contact">Обсудить проект <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-content">
+        <div class="eyebrow reveal">Независимая digital-студия · 2026</div>
+        <h1 class="reveal delay-1" id="hero-title">СОЗДАЁМ <em>ЦИФРОВОЕ</em><span>БУДУЩЕЕ</span></h1>
+        <p class="hero-copy reveal delay-2">Разрабатываем высокотехнологичные сайты, умных Telegram-ботов и AI-инструменты, которые превращают идеи в работающий бизнес.</p>
+        <div class="hero-actions reveal delay-3">
+          <a class="button button-primary" href="#cases">Смотреть кейсы <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <a class="button" href="#contact">Быстрая связь <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+        </div>
+        <div class="hero-meta reveal delay-3"><span><i></i> Веб-разработка</span><span><i></i> AI и автоматизация</span><span><i></i> Дизайн систем</span></div>
+      </div>
+      <a class="scroll-cue" href="#services">Листайте вниз</a>
+    </section>
+
+    <div class="ticker" aria-label="Направления работы"><div class="ticker-track" aria-hidden="true">
+      <span>WEB DEVELOPMENT <b>✳</b> AI & AUTOMATION <b>✳</b> DIGITAL DESIGN <b>✳</b> SMART SYSTEMS <b>✳</b> WEB DEVELOPMENT <b>✳</b> AI & AUTOMATION <b>✳</b> DIGITAL DESIGN <b>✳</b> SMART SYSTEMS <b>✳</b></span>
+      <span>WEB DEVELOPMENT <b>✳</b> AI & AUTOMATION <b>✳</b> DIGITAL DESIGN <b>✳</b> SMART SYSTEMS <b>✳</b> WEB DEVELOPMENT <b>✳</b> AI & AUTOMATION <b>✳</b> DIGITAL DESIGN <b>✳</b> SMART SYSTEMS <b>✳</b></span>
+    </div></div>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal"><div><div class="eyebrow">Что мы делаем</div><h2>Область<br>экспертизы.</h2></div><p>Соединяем сильный дизайн и надёжную инженерию. От первого прототипа до запуска и роста.</p></div>
+        <div class="services-grid reveal">
+          <article class="service-card"><span class="service-number">01 / WEB</span><div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01M7 13h4m-4 3h8"/></svg></div><h3>Web Development</h3><p>Продающие лендинги и премиальные сайты-визитки. Быстрые, адаптивные, готовые к росту.</p></article>
+          <article class="service-card"><span class="service-number">02 / AI</span><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-4 12.74V19h8v-3.26A7 7 0 0 0 12 3Zm-3 19h6m-3-5v5m-2-11 2 2 4-4"/></svg></div><h3>AI & Chatbots</h3><p>Умные Telegram-боты, автоворонки и интеграция нейросетей в клиентский сервис.</p></article>
+          <article class="service-card"><span class="service-number">03 / FLOW</span><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M4 7h10m0 0-3-3m3 3-3 3M20 17H10m0 0 3-3m-3 3 3 3M4 12h2m12 0h2"/></svg></div><h3>Automation</h3><p>Скрипты для ПК, автоматизация файловых систем и рутины — меньше ручной работы.</p></article>
+          <article class="service-card"><span class="service-number">04 / DESIGN</span><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M14 3h7v7m0-7L10 14"/></svg></div><h3>UI/UX Design</h3><p>Проектирование современных и дорогих интерфейсов, в которых удобно и приятно работать.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cases" id="cases">
+      <div class="container">
+        <div class="section-head reveal"><div><div class="eyebrow">Избранное</div><h2>Создано для<br>реального мира.</h2></div><p>Каждый проект — точка пересечения чёткой стратегии, выразительного дизайна и технологий.</p></div>
+        <div class="cases-grid reveal">
+          <a class="case-card" href="#contact" aria-label="Обсудить проект NOVA commerce"><span class="case-label">E-commerce · 2026</span><div class="case-info"><small>01 — Цифровая витрина</small><h3>NOVA commerce</h3><p>Новый опыт покупок для бренда следующего поколения.</p></div><span class="case-arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+          <a class="case-card" href="#contact" aria-label="Обсудить проект Orbital"><span class="case-label">Brand platform · 2026</span><div class="case-info"><small>02 — Новый масштаб</small><h3>Orbital</h3><p>Цифровая платформа с космическим характером.</p></div><span class="case-arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+          <a class="case-card" href="#contact" aria-label="Обсудить проект Synapse AI"><span class="case-label">AI automation · 2026</span><div class="case-info"><small>03 — Работа умнее</small><h3>Synapse AI</h3><p>Автоматизация коммуникаций в одном умном потоке.</p></div><span class="case-arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+        </div>
+        <div class="stats reveal"><div class="stat"><strong>01 → ∞</strong><span>От идеи до долгосрочного партнёрства</span></div><div class="stat"><strong>24/7</strong><span>Автоматизация работает, пока вы отдыхаете</span></div><div class="stat"><strong>100%</strong><span>Решения под задачи именно вашего бизнеса</span></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="team">
+      <div class="container">
+        <div class="section-head reveal"><div><div class="eyebrow">Smart team</div><h2>Люди. Системы.<br>Результат.</h2></div><p>Компактная команда с большим технологическим охватом. Без лишних звеньев — только экспертиза.</p></div>
+        <div class="team-box reveal">
+          <div class="team-row"><span class="team-name">Alex</span><span class="team-role">Lead Web Developer</span><i class="team-status" aria-label="На связи"></i></div>
+          <div class="team-row"><span class="team-name">Пятница</span><span class="team-role">AI Voice Assistant</span><i class="team-status" aria-label="На связи"></i></div>
+          <div class="team-row"><span class="team-name">Goose</span><span class="team-role">Copilot Engineer</span><i class="team-status" aria-label="На связи"></i></div>
+          <div class="team-row"><span class="team-name">Вы</span><span class="team-role">Следующий партнёр NOVA</span><i class="team-status" aria-label="На связи"></i></div>
+        </div>
+        <p class="team-note reveal">* Названия ролей и состав команды — редактируемые демонстрационные данные.</p>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="contact-wrap reveal">
+          <div class="contact-copy"><div class="eyebrow">Let's talk</div><h2>Есть идея?<br><span>Запустим.</span></h2><p>Расскажите, что хотите изменить в своём бизнесе. Мы вернёмся с вопросами, решениями и планом действий.</p>
+            <div class="contact-links">
+              <a href="https://t.me/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="m21 3-7.2 18-3.8-7-7-3.8L21 3ZM10 14l4-4"/></svg> Telegram — напишите нам</a>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.9a3.4 3.4 0 0 0-.9-2.7c3-.3 6.1-1.5 6.1-6.7a5.2 5.2 0 0 0-1.4-3.6 4.8 4.8 0 0 0-.1-3.6s-1.2-.4-3.8 1.4a13 13 0 0 0-7 0C5.3 1.1 4.1 1.5 4.1 1.5A4.8 4.8 0 0 0 4 5.1a5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.1 6.4 6.1 6.7a3.4 3.4 0 0 0-.9 2.7V22"/></svg> GitHub — проекты студии</a>
+            </div>
+          </div>
+          <form class="contact-form" id="contact-form">
+            <div class="field"><label for="name">Ваше имя</label><input id="name" name="name" type="text" placeholder="Как к вам обращаться?" autocomplete="name" required></div>
+            <div class="field"><label for="contact-way">Телефон или Telegram</label><input id="contact-way" name="contact" type="text" placeholder="@username или +7 ..." autocomplete="tel" required></div>
+            <div class="field"><label for="task">Описание задачи</label><textarea id="task" name="task" placeholder="Коротко о проекте и целях" required></textarea></div>
+            <button class="button button-primary" type="submit">Начать проект <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <p class="form-message" id="form-message" aria-live="polite"></p>
+            <span class="form-hint">Нажимая кнопку, вы откроете письмо в своей почтовой программе.</span>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-mark">✳</span><span>NOVA AGENCY</span></a><span>© <span id="year"></span> NOVA AGENCY. Создаём цифровое будущее.</span><div class="footer-meta"><a href="#top">Наверх ↑</a><span>Сделано с точностью к деталям</span></div></div></footer>
+
+  <script>
+    // Цветовая тема: запоминаем выбор посетителя в браузере.
+    const root = document.body;
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('nova-theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
+    themeToggle.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('nova-theme', root.dataset.theme);
+    });
+
+    // Мобильная навигация.
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('site-nav');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Открыть меню');
+    }));
+
+    // Закреплённая шапка получает деликатную границу при прокрутке.
+    const header = document.querySelector('.header');
+    const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 12);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+
+    // Появление контента по мере прокрутки.
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+      revealItems.forEach(item => revealObserver.observe(item));
+    } else revealItems.forEach(item => item.classList.add('visible'));
+
+    // Canvas-звёзды: лёгкий дрейф и мягкое отталкивание от курсора.
+    const canvas = document.getElementById('space');
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let width = 0, height = 0, stars = [], dpr = 1;
+    const pointer = { x: -1000, y: -1000 };
+    const starCount = () => Math.min(150, Math.max(48, Math.floor((window.innerWidth * window.innerHeight) / 10500)));
+    function resizeCanvas() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth; height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr); canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      stars = Array.from({ length: starCount() }, () => ({
+        x: Math.random() * width, y: Math.random() * height,
+        radius: Math.random() * 1.35 + .35,
+        alpha: Math.random() * .55 + .2,
+        phase: Math.random() * Math.PI * 2,
+        speed: (Math.random() * .22 + .06) * (Math.random() < .5 ? -1 : 1),
+        drift: Math.random() * .14 + .025
+      }));
+    }
+    function drawStars(time = 0) {
+      ctx.clearRect(0, 0, width, height);
+      const dark = root.dataset.theme !== 'light';
+      const color = dark ? '160,255,190' : '23,100,53';
+      for (const star of stars) {
+        if (!reduceMotion) {
+          star.x += star.speed * .12;
+          star.y -= star.drift * .12;
+          if (star.x < -4) star.x = width + 4;
+          if (star.x > width + 4) star.x = -4;
+          if (star.y < -4) star.y = height + 4;
+          const dx = star.x - pointer.x, dy = star.y - pointer.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance < 115 && distance > 0) {
+            const push = (115 - distance) / 115 * .45;
+            star.x += dx / distance * push;
+            star.y += dy / distance * push;
+          }
+        }
+        const twinkle = reduceMotion ? 1 : .72 + Math.sin(time * .001 + star.phase) * .28;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${color},${star.alpha * twinkle})`;
+        ctx.shadowBlur = star.radius > 1.1 ? 9 : 4;
+        ctx.shadowColor = dark ? '#00ff66' : '#00a844';
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      if (!reduceMotion) requestAnimationFrame(drawStars);
+    }
+    resizeCanvas();
+    if (reduceMotion) drawStars(); else requestAnimationFrame(drawStars);
+    window.addEventListener('resize', resizeCanvas, { passive: true });
+    window.addEventListener('pointermove', event => { pointer.x = event.clientX; pointer.y = event.clientY; }, { passive: true });
+    window.addEventListener('pointerleave', () => { pointer.x = -1000; pointer.y = -1000; });
+
+    // Форма открывает почтовый клиент. Замените адрес на ваш рабочий email.
+    document.getElementById('contact-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      if (!form.reportValidity()) return;
+      const data = new FormData(form);
+      const subject = encodeURIComponent('Новый проект — ' + data.get('name'));
+      const body = encodeURIComponent(
+        `Имя: ${data.get('name')}\nТелефон / Telegram: ${data.get('contact')}\n\nЗадача:\n${data.get('task')}`
+      );
+      // TODO: поменяйте hello@nova.agency на свой адрес.
+      window.location.href = `mailto:hello@nova.agency?subject=${subject}&body=${body}`;
+      document.getElementById('form-message').textContent = 'Письмо подготовлено — отправьте его в открывшейся почтовой программе.';
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
